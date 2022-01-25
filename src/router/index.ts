@@ -1,5 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
+import { localCache } from '@/utils/cache'
 
 const routes: Array<RouteRecordRaw> = [
   { path: '/', redirect: '/helloworld' },
@@ -7,6 +8,25 @@ const routes: Array<RouteRecordRaw> = [
     path: '/helloworld',
     name: 'helloworld',
     component: () => import('@/components/HelloWorld.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login/Login.vue')
+  },
+  {
+    path: '/index',
+    name: 'Index',
+    component: () => import('@/components/Layout.vue'),
+    meta: {
+      title: 'Dashboard'
+    }
+  },
+
+  {
+    path: '/main',
+    name: 'main',
+    component: () => import('@/views/main/Main.vue')
   },
   {
     path: '/:pathMatch(.*)*',
@@ -35,13 +55,13 @@ const router = createRouter({
   history: createWebHistory()
 })
 // 导航守卫，如果用户未登录则跳转到登录页
-// router.beforeEach((to) => {
-//   if (to.path !== '/login') {
-//     const token = localCache.getItem('token')
-//     if (!token) {
-//       return '/login'
-//     }
-//   }
-// })
+router.beforeEach((to) => {
+  if (to.path !== '/login') {
+    const token = localCache.getItem('token')
+    if (!token) {
+      return '/login'
+    }
+  }
+})
 
 export default router

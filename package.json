@@ -25,6 +25,7 @@
     "@commitlint/config-conventional": "^16.0.0",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
+    "@vicons/fluent": "^0.11.0",
     "@vitejs/plugin-vue": "^2.0.0",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
@@ -38,6 +39,7 @@
     "prettier": "^2.5.1",
     "typescript": "^4.4.4",
     "vite": "^2.7.2",
+    "vite-plugin-vue-setup-extend": "^0.3.0",
     "vite-plugin-windicss": "^1.6.3",
     "vue-tsc": "^0.29.8",
     "windicss": "^3.4.3"
