@@ -22,27 +22,32 @@ import SysAvatar from '../sysAvatar/SysAvatar.vue'
 
 <style lang="less" scoped>
 @import 'src/assets/css/variables.less';
+
 .sys-header-layout {
-  height: @logoHeight;
+  display: flex;
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
+  left: 0;
   z-index: 999;
-  display: flex;
-  align-items: center;
   box-sizing: border-box;
   border-bottom: 1px solid var(--border-color);
+  height: @logoHeight;
+  align-items: center;
+
   .logo-wrapper {
     width: @menuWidth;
   }
+
   .menu-wrapper {
     flex: 1;
     overflow: hidden;
   }
+
   .right-wrapper {
     height: 100%;
   }
+
   .avatar-wrapper {
     padding-right: 15px;
   }

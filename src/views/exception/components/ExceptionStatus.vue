@@ -50,12 +50,12 @@ const backHome = () => {
 
 <style lang="less" scoped>
 .exception-container {
-  text-align: center;
   height: 100%;
+  text-align: center;
 
   .img-wrapper {
-    width: 80%;
     margin: 0 auto;
+    width: 80%;
 
     & > img {
       width: 100%;

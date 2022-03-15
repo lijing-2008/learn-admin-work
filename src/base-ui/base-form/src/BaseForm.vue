@@ -130,7 +130,7 @@ const validator = () => {
   formRef.value?.validate((valid) => {
     if (!valid) {
       // 校验成功
-      emits('update:modelValue', newValue)
+      emits('update:modelValue')
       return true
     } else {
       // 校验失败

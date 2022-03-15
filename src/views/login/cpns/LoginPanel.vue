@@ -95,80 +95,92 @@ const handleClickRegister = () => {
   from {
     transform: translateX(-100%);
   }
+
   to {
     transform: translateX(0);
   }
 }
+
 .login-container {
-  position: relative;
   overflow: hidden;
-  height: 100vh;
+  position: relative;
   width: 100%;
+  height: 100vh;
   @media screen and(max-width:960px) {
     .left {
       display: none !important;
     }
   }
+
   .left {
     display: block;
     position: relative;
-    min-width: 450px;
     width: 450px;
+    min-width: 450px;
+
     & > img {
       height: 100%;
     }
+
     &::after {
-      content: '';
       position: absolute;
       top: 0;
-      left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba(0, 0, 0, 0.6);
+      left: 0;
       z-index: 2;
+      background-color: rgb(0 0 0 / 60%);
+      content: '';
     }
+
     .content-wrapper {
+      display: flex;
       position: absolute;
       top: 0;
-      left: 0;
       right: 0;
       bottom: 0;
+      left: 0;
       z-index: 9;
-      display: flex;
       flex-direction: column;
       justify-content: space-around;
       align-items: center;
+
       .logo-wrapper {
-        width: 80px;
         margin-top: 30%;
+        width: 80px;
       }
+
       .title {
         margin-top: 10px;
-        color: #ffffff;
-        font-weight: bold;
         font-size: 24px;
+        font-weight: bold;
+        color: #fff;
       }
+
       .sub-title {
         margin-top: 10px;
-        color: #f5f5f5;
         font-size: 16px;
+        color: #f5f5f5;
       }
+
       .ttppii {
-        color: #ffffff;
-        font-weight: 500;
         font-size: 20px;
-        // text-shadow: 1px 1px 2px #f5f5f5;
-        animation: left-to-right 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        font-weight: 500;
+        color: #fff;
         text-shadow: 0 0 5px var(--primary-color), 0 0 15px var(--primary-color),
           0 0 50px var(--primary-color), 0 0 150px var(--primary-color);
+        // text-shadow: 1px 1px 2px #f5f5f5;
+        animation: left-to-right 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
+
       .bottom-wrapper {
         margin-bottom: 5%;
-        color: #c0c0c0;
         font-size: 16px;
+        color: #c0c0c0;
       }
     }
   }
+
   .right {
   }
 }

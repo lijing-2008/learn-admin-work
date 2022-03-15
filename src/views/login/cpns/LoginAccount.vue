@@ -8,9 +8,9 @@
       :rules="accountRules"
       ref="formRef"
     >
-      <n-form-item label-placement="left" label="身份证号" path="username">
+      <n-form-item label-placement="left" label="用户名" path="username">
         <n-input
-          placeholder="请输入身份证号"
+          placeholder="请输入用户名"
           v-model:value="account.username"
         ></n-input>
       </n-form-item>
@@ -22,26 +22,52 @@
           show-password-on="mousedown"
         ></n-input>
       </n-form-item>
+      <n-form-item
+        v-if="captchaOnOff"
+        label-placement="left"
+        label="验证码"
+        path="code"
+      >
+        <n-input
+          class="mr-4"
+          placeholder="请输入验证码"
+          v-model:value="account.code"
+        ></n-input>
+        <img :src="captchaUrl" width="80" @click="getCaptcha" />
+      </n-form-item>
     </n-form>
   </div>
 </template>
 
 <script setup lang="ts">
 import { localCache } from '@/utils/cache'
-import { reactive, ref } from 'vue'
+import { computed, onBeforeMount, reactive, ref } from 'vue'
 import { accountRules } from '../config/account-config'
 import { NForm, useMessage } from 'naive-ui'
 import { useLoginStore } from '@/store/login/login'
 
-// 1.从localStorage获取用户名密码，如果有则赋值，没有为空字符
-const account = reactive({
-  username: localCache.getItem('username') ?? '',
-  password: localCache.getItem('password') ?? ''
-})
-
 const formRef = ref<InstanceType<typeof NForm>>()
 const loginStore = useLoginStore()
 const message = useMessage()
+
+// 0.获取验证码
+const getCaptcha = () => {
+  loginStore.captchaImageAction()
+}
+onBeforeMount(() => {
+  getCaptcha()
+})
+const captchaOnOff = computed(() => loginStore.captchaInfo.captchaOnOff)
+const captchaUrl = computed(() => loginStore.captchaUrl)
+
+// 1.从localStorage获取用户名密码，如果有则赋值，没有为空字符
+const account = reactive({
+  username: localCache.getItem('username') ?? '',
+  password: localCache.getItem('password') ?? '',
+  code: '',
+  uuid: computed(() => loginStore.captchaInfo.uuid)
+})
+
 const loginAction = (isKeepPassword: boolean) => {
   formRef.value?.validate((valid) => {
     if (!valid) {

@@ -1,6 +1,6 @@
 <template>
   <div class="logo-wrapper">
-    <img v-if="showLogo" src="src/assets/img/vite-logo.png" class="logo-img" />
+    <img v-if="showLogo" src="/src/assets/img/vite-logo.png" class="logo-img" />
     <div
       v-if="showTitle"
       :class="[!currentIsCollapse || alwaysShow ? 'show-title' : 'close-title']"
@@ -34,26 +34,31 @@ const props = defineProps({
 
 <style lang="less" scoped>
 @import 'src/assets/css/variables.less';
+
 .logo-wrapper {
-  height: @logoHeight;
   display: flex;
+  border-bottom: 1px dashed var(--border-color);
+  height: @logoHeight;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px dashed var(--border-color);
+
   .logo-img {
     width: 30px;
   }
+
   .logo-title {
     font-weight: bold;
   }
+
   .show-title {
-    transform: scale(1);
     width: auto;
     transition: transform 0.2s ease-in;
+    transform: scale(1);
   }
+
   .close-title {
-    transform: scale(0);
     width: 0;
+    transform: scale(0);
   }
 }
 </style>

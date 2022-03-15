@@ -12,7 +12,7 @@
             <n-input
               v-model:value="modelRef.username"
               @keydown.enter.prevent
-              placeholder="请输入身份证号"
+              placeholder="请输入用户名"
             />
           </n-form-item>
           <n-form-item path="password" label="密码">
@@ -55,8 +55,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref, watch, watchEffect } from 'vue'
 import { FormItemRule, FormRules, NForm, NFormItem, useMessage } from 'naive-ui'
+import { useRegisterStore } from '@/store/register/register'
+import { registerUser } from '@/api/register/register'
 
 const formRef = ref<InstanceType<typeof NForm>>()
 const rPasswordFormItemRef = ref<InstanceType<typeof NFormItem>>()
@@ -75,19 +77,15 @@ function validatePasswordSame(rule: FormItemRule, value: any) {
   return value === modelRef.value.password
 }
 
-// 身份证号校验，支持1/2代身份证
-const idCardReg =
-  /^\d{6}((((((19|20)\d{2})(0[13-9]|1[012])(0[1-9]|[12]\d|30))|(((19|20)\d{2})(0[13578]|1[02])31)|((19|20)\d{2})02(0[1-9]|1\d|2[0-8])|((((19|20)([13579][26]|[2468][048]|0[48]))|(2000))0229))\d{3})|((((\d{2})(0[13-9]|1[012])(0[1-9]|[12]\d|30))|((\d{2})(0[13578]|1[02])31)|((\d{2})02(0[1-9]|1\d|2[0-8]))|(([13579][26]|[2468][048]|0[048])0229))\d{2}))(\d|X|x)$/
-
 const rules: FormRules = {
   username: [
     {
       required: true,
       validator(rule, value) {
         if (!value) {
-          return new Error('请填写身份证号')
-        } else if (!idCardReg.test(value)) {
-          return new Error('身份证号校验失败')
+          return new Error('请填写用户名')
+        } else if (!/^[a-zA-Z][a-zA-Z0-9]{3,}/.test(value)) {
+          return new Error('用户名校验失败')
         }
         return true
       },
@@ -120,10 +118,16 @@ const handlePasswordInput = () => {
   }
 }
 
+const registerStore = useRegisterStore()
 const handleConfirmClick = () => {
   formRef.value?.validate((valid) => {
     if (!valid) {
-      message.info('校验成功')
+      registerStore.registerUserAction({
+        username: modelRef.value.username,
+        password: modelRef.value.password
+      })
+      const msg = computed(() => registerStore.msg)
+      message.info(msg.value)
       showModal.value = false
     } else {
       message.error('表单校验失败，请重新输入...')

@@ -1,55 +1,64 @@
 <template>
   <div class="action-items-wrapper">
+    <span class="p-6"> this section set many icons</span>
     <span class="action-item" @click="handleShowSystemSettingClick">
-      <n-icon size="18">
-        <Settings28Regular />
-      </n-icon>
+      <!--      <n-icon size="18">-->
+      <!--        <Settings28Regular />-->
+      <!--      </n-icon>-->
+      <SvgIcon prefix="iconfont" name="setting-01" height="20" width="20" />
     </span>
-    <SysSetting ref="sysSettingRef" />
+    <!--    <SysSetting ref="sysSettingRef" />-->
   </div>
 </template>
 
 <script setup lang="ts">
-import { Settings28Regular } from '@vicons/fluent'
 import SysSetting from '@/components/sysSetting/SysSetting.vue'
 import { ref } from 'vue'
 import { ISysSettingRef } from '@/components/sysSetting/type'
+import emitter from '@/bus'
+import SvgIcon from '@/components/svgIcon/SvgIcon.vue'
 const sysSettingRef = ref<InstanceType<typeof SysSetting> & ISysSettingRef>()
+
 const handleShowSystemSettingClick = () => {
-  sysSettingRef.value?.openDrawer()
+  emitter.emit('open-drawer')
+  // sysSettingRef.value?.openDrawer()
 }
 </script>
 <style lang="less" scoped>
 .action-items-wrapper {
-  position: relative;
-  height: 100%;
   display: flex;
-  align-items: center;
+  position: relative;
   z-index: 1;
+  height: 100%;
+  align-items: center;
+
   .action-item {
-    min-width: 40px;
     display: flex;
+    min-width: 40px;
     align-items: center;
+
     &:hover {
-      cursor: pointer;
       color: var(--primary-color-hover);
+      cursor: pointer;
     }
   }
+
   .badge-action-item {
-    cursor: pointer;
     margin-right: 30px;
+    cursor: pointer;
   }
 }
 
 :deep(.n-input .n-input__border, .n-input .n-input__state-border) {
   border: none;
-  border-bottom: 1px solid currentColor;
+  border-bottom: 1px solid currentcolor;
 }
+
 :deep(.el-input__inner) {
   border: none !important;
   height: 35px;
   line-height: 35px;
-  color: currentColor !important;
+  color: currentcolor !important;
   background-color: transparent !important;
 }
 </style>

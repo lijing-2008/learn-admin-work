@@ -23,5 +23,10 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/ban-types': 'off',
     'vue/no-setup-props-destructure': 'off'
+  },
+  globals: {
+    defineProps: true,
+    defineExpose: true,
+    defineEmits: true
   }
 }

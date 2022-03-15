@@ -1,5 +1,11 @@
 import { defineStore, GettersTree } from 'pinia'
-import { ILayoutAction, ILayoutState, LayoutMode } from '@/store/layout/type'
+import {
+  ILayoutAction,
+  ILayoutState,
+  LayoutMode,
+  SideTheme,
+  Theme
+} from '@/store/layout/type'
 import { DefaultSystemSettings } from '@/setting'
 import { localCache } from '@/utils/cache'
 import { SETTING_INFO } from '@/setting/constVar'
@@ -19,7 +25,7 @@ export const useLayoutStore = defineStore<
     isCollapse: DefaultSystemSettings.isCollapse,
     isFixedNavBar: DefaultSystemSettings.isFixedNavBar,
     theme: DefaultSystemSettings.theme,
-    sideBarBgColor: DefaultSystemSettings.sideBarBgColor,
+    sideBarBgColor: DefaultSystemSettings.sideTheme,
     pageAnim: DefaultSystemSettings.pageAnim,
     themeOverrides: {
       common: {
@@ -37,13 +43,14 @@ export const useLayoutStore = defineStore<
       showMessage: DefaultSystemSettings.actionBar.isShowMessage,
       showFullScreen: DefaultSystemSettings.actionBar.isShowFullScreen,
       showRefresh: DefaultSystemSettings.actionBar.isShowRefresh
-    }
+    },
+    permissionRoutes: []
   }),
   actions: {
     isShowHeaderAction() {
       return this.layoutMode === LayoutMode.TTB
     },
-    changeLayoutModeAction(mode) {
+    changeLayoutModeAction(mode: LayoutMode) {
       this.layoutMode = mode
       persistSettingInfo(
         Object.assign(DefaultSystemSettings, {
@@ -57,9 +64,17 @@ export const useLayoutStore = defineStore<
     changeFixedNavBar(isFixed: boolean) {
       this.isFixedNavBar = !this.isFixedNavBar
     },
-    changeThemeAction(theme) {
+    changeThemeAction(theme: Theme) {
       this.theme = theme
       persistSettingInfo(Object.assign(DefaultSystemSettings, { theme: theme }))
+    },
+    changeSideBarBgColor(sideTheme: SideTheme) {
+      this.sideBarBgColor = sideTheme
+      persistSettingInfo(
+        Object.assign(DefaultSystemSettings, {
+          sideTheme: sideTheme
+        })
+      )
     }
   }
 })

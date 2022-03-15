@@ -3,5 +3,11 @@ interface IDataType<T = any> {
   msg: string
   data: T
 }
+interface ITableType<T = any> {
+  status: number
+  msg: string
+  total: number
+  list: Array<T>
+}
 
-export { IDataType }
+export { IDataType, ITableType }

@@ -52,7 +52,9 @@ import {
   NLoadingBarProvider,
   NBackTop,
   NDrawer,
-  NDrawerContent
+  NDrawerContent,
+  NScrollbar,
+  NSpin
 } from 'naive-ui'
 
 const naive = create({
@@ -110,7 +112,9 @@ const naive = create({
     NGlobalStyle,
     NLoadingBarProvider,
     NDrawer,
-    NDrawerContent
+    NDrawerContent,
+    NScrollbar,
+    NSpin
   ]
 })
 export default naive
